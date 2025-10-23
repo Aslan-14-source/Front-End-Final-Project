@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        /* Top Banner */
+        .top-banner {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 13px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .top-banner a {
+            color: white;
+            text-decoration: underline;
+            margin-left: 5px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 29px;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .shop-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-bar {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            width: 200px;
+            font-size: 13px;
+        }
+
+        .icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .wishlist-btn,
+        .cart-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .signup-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        /* Main Content */
+        .main-wrapper {
+            margin-top: 100px;
+            padding: 20px;
+        }
+
+        .top-bar {
+            max-width: 1200px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-box {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+            font-size: 14px;
+        }
+
+        .all-products-btn {
+            background-color: #e53935;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .sort-dropdown {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 30px;
+        }
+
+        .sidebar {
+            width: 200px;
+            flex-shrink: 0;
+        }
+
+        .sidebar h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .category-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .category-list li {
+            padding: 8px 0;
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .category-list li:hover {
+            color: #e53935;
+        }
+
+        .category-list li.active {
+            color: #e53935;
+            font-weight: 500;
+        }
+
+        .rate-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .rate-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .rate-option:hover {
+            opacity: 0.7;
+        }
+
+        .rate-option.active {
+            font-weight: 500;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 16px;
+        }
+
+        .products-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: white;
+            transition: box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card.hidden {
+            display: none;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            min-height: 40px;
+        }
+
+        .product-price {
+            color: #e53935;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .rating-stars {
+            color: #ffc107;
+        }
+
+        .rating-count {
+            color: #999;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #555;
+        }
+
+        /* Footer */
+        footer {
+            background: #e74c3c;
+            color: white;
+            padding: 60px 80px 30px 80px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-column p,
+        .footer-column a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* Subscribe section */
+        .footer-subscribe input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .footer-subscribe input::placeholder {
+            color: #fff;
+        }
+
+        .subscribe-btn {
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            margin-left: -40px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            background: #e74c3c;
+        }
+
+
+        .qr-code {
+            width: 80px;
+            height: 80px;
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .app-buttons img {
+            width: 120px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* Social icons */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons i {
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .social-icons i:hover {
+            opacity: 0.7;
+        }
+
+        /* Bottom line */
+        .footer-bottom {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        @media(max-width: 900px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-subscribe input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .subscribe-btn {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Banner -->
+    <div class="top-banner">
+        Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! <a href="#">ShopNow</a>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">E-commerce</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#">Contact</a>
+            <a href="#">About</a>
+            <a href="#">Sign Up</a>
+            <button class="shop-btn">Shop</button>
+        </nav>
+        <div class="header-right">
+            <input type="text" class="search-bar" placeholder="What are you looking for?">
+            <i class="fas fa-search"></i>
+            <div class="icons">
+                <button class="signup-btn">log in</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <div class="top-bar">
+            <input type="text" class="search-box" placeholder="search" id="searchInput">
+            <button class="all-products-btn" onclick="showAllProducts()">All products</button>
+            <select class="sort-dropdown" id="sortDropdown" onchange="sortProducts()">
+                <option value="">Sort by</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="newest">Newest</option>
+            </select>
+        </div>
+
+        <div class="container">
+            <div class="main-content">
+                <aside class="sidebar">
+                    <div class="category-section">
+                        <h3>Category</h3>
+                        <ul class="category-list">
+                            <li onclick="filterCategory('all')" class="active">All</li>
+                            <li onclick="filterCategory('clothing')">Clothing</li>
+                            <li onclick="filterCategory('footwear')">Footwear</li>
+                            <li onclick="filterCategory('accessories')">Accessories</li>
+                            <li onclick="filterCategory('tablets')">Tablets</li>
+                        </ul>
+                    </div>
+
+                    <div class="rate-section">
+                        <h3>Rate</h3>
+                        <div class="rate-option" onclick="filterRating(5)">
+                            <span class="stars">★★★★★</span>
+                        </div>
+                        <div class="rate-option" onclick="filterRating(4)">
+                            <span class="stars">★★★★</span>
+                        </div>
+                        <div class="rate-option" onclick="filterRating(3)">
+                            <span class="stars">★★★</span>
+                        </div>
+                        <div class="rate-option" onclick="filterRating(2)">
+                            <span class="stars">★★</span>
+                        </div>
+                        <div class="rate-option" onclick="filterRating(1)">
+                            <span class="stars">★</span>
+                        </div>
+                    </div>
+                </aside>
+
+                <div class="products-grid" id="productsGrid">
+                    <div class="product-card" data-category="clothing" data-rating="5" data-price="19.99">
+                        <img src="tshirt-removebg-preview.png" alt="T-Shirt">
+                        <div class="product-name">Hanes Hanes Cotton T-Shirt</div>
+                        <div class="product-price">19.99$</div>
+                        <div class="product-rating">
+                            <span class="rating-stars">★★★★★</span>
+                            <span class="rating-count">(98)</span>
+                        </div>
+                        <button class="add-to-cart-btn">add to cart</button>
+                    </div>
+
+                    <div class="product-card" data-category="footwear" data-rating="5" data-price="89.99">
+                        <img src="nike-removebg-preview.png" alt="Nike Shoes">
+                        <div class="product-name">Nike Nike Running Shoes</div>
+                        <div class="product-price">89.99$</div>
+                        <div class="product-rating">
+                            <span class="rating-stars">★★★★★</span>
+                            <span class="rating-count">(65)</span>
+                        </div>
+                        <button class="add-to-cart-btn">add to cart</button>
+                    </div>
+
+                    <div class="product-card" data-category="accessories" data-rating="4" data-price="79.99">
+                        <img src="canta-removebg-preview.png" alt="Backpack">
+                        <div class="product-name">Samsonite Samsonite Backpack</div>
+                        <div class="product-price">79.99$</div>
+                        <div class="product-rating">
+                            <span class="rating-stars">★★★★</span>
+                            <span class="rating-count">(42)</span>
+                        </div>
+                        <button class="add-to-cart-btn">add to cart</button>
+                    </div>
+
+                    <div class="product-card" data-category="tablets" data-rating="5" data-price="999.99">
+                        <img src="ipad-removebg-preview.png" alt="iPad">
+                        <div class="product-name">Apple Apple iPad Pro</div>
+                        <div class="product-price">999.99$</div>
+                        <div class="product-rating">
+                            <span class="rating-stars">★★★★★</span>
+                            <span class="rating-count">(127)</span>
+                        </div>
+                        <button class="add-to-cart-btn">add to cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column footer-subscribe">
+                <h3>Exclusive</h3>
+                <p>Subscribe</p>
+                <p>Get 10% off your first order</p>
+                <div class="email-input-wrapper">
+                    <input type="email" placeholder="Enter your email">
+                    <button class="subscribe-btn">→</button>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Support</h3>
+                <p>111 Bijoy sarani, Dhaka,<br>DH 1515, Bangladesh.</p>
+                <p>exclusive@gmail.com</p>
+                <p>+88015-88888-9999</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Account</h3>
+                <a href="#">My Account</a>
+                <a href="#">Login / Register</a>
+                <a href="#">Cart</a>
+                <a href="#">Wishlist</a>
+                <a href="#">Shop</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Link</h3>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms Of Use</a>
+                <a href="#">FAQ</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Download App</h3>
+                <p style="font-size: 11px; opacity: 0.8;">Save $3 with App New User Only</p>
+                <div class="qr-and-apps">
+                    <img src="qrcode.svg" alt="" class="qr-code">
+                    <div class="app-buttons">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                            alt="Google Play">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
+                            alt="App Store">
+                    </div>
+                </div>
+                <div class="social-icons">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin-in"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © Copyright Rimel 2022. All right reserved
+        </div>
+    </footer>
+
+    <script>
+        let currentCategory = 'all';
+        let currentRating = 0;
+
+        function filterCategory(category) {
+            currentCategory = category;
+            applyFilters();
+
+            document.querySelectorAll('.category-list li').forEach(li => {
+                li.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function filterRating(rating) {
+            currentRating = rating;
+            applyFilters();
+
+            document.querySelectorAll('.rate-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.target.closest('.rate-option').classList.add('active');
+        }
+
+        function applyFilters() {
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const cardCategory = card.dataset.category;
+                const cardRating = parseInt(card.dataset.rating);
+
+                let showCard = true;
+
+                if (currentCategory !== 'all' && cardCategory !== currentCategory) {
+                    showCard = false;
+                }
+
+                if (currentRating > 0 && cardRating < currentRating) {
+                    showCard = false;
+                }
+
+                if (showCard) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        function showAllProducts() {
+            currentCategory = 'all';
+            currentRating = 0;
+
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.classList.remove('hidden');
+            });
+
+            document.querySelectorAll('.category-list li').forEach(li => {
+                li.classList.remove('active');
+            });
+            document.querySelector('.category-list li').classList.add('active');
+
+            document.querySelectorAll('.rate-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+        }
+
+        function sortProducts() {
+            const grid = document.getElementById('productsGrid');
+            const cards = Array.from(document.querySelectorAll('.product-card'));
+            const sortValue = document.getElementById('sortDropdown').value;
+
+            if (sortValue === 'price-low') {
+                cards.sort((a, b) => parseFloat(a.dataset.price) - parseFloat(b.dataset.price));
+            } else if (sortValue === 'price-high') {
+                cards.sort((a, b) => parseFloat(b.dataset.price) - parseFloat(a.dataset.price));
+            }
+
+            cards.forEach(card => grid.appendChild(card));
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const productName = card.querySelector('.product-name').textContent.toLowerCase();
+                if (productName.includes(searchTerm)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

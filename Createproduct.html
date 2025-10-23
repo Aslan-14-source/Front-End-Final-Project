@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Product</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .promo-banner {
+            background-color: #e74c3c;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .promo-banner a {
+            color: white;
+            text-decoration: underline;
+            margin-left: 5px;
+        }
+
+        header {
+            background-color: white;
+            padding: 15px 50px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .shop-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-box input {
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        .login-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 25px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        .preview {
+            margin-top: 10px;
+        }
+
+        .preview img {
+            width: 150px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+
+        .buttons {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .buttons button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+
+        .save-btn {
+            background-color: #007bff;
+        }
+
+        .reset-btn {
+            background-color: #f1c40f;
+            color: black;
+        }
+
+        footer {
+            background: #e74c3c;
+            color: white;
+            padding: 60px 80px 30px 80px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-column p,
+        .footer-column a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .footer-subscribe input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .footer-subscribe input::placeholder {
+            color: #fff;
+        }
+
+        .subscribe-btn {
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            margin-left: -40px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            background: #e74c3c;
+        }
+
+        .qr-code {
+            width: 80px;
+            height: 80px;
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .app-buttons img {
+            width: 120px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons i {
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .social-icons i:hover {
+            opacity: 0.7;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        @media(max-width: 900px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-subscribe input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .subscribe-btn {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="promo-banner">
+        Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
+        <a href="#">ShopNow</a>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">E-commerce</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Sign Up</a></li>
+                <li><a href="#" class="shop-btn" style="color: white;">Shop</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="search-box">
+                    <input type="text" placeholder="What are you looking for?">
+                    <i class="fas fa-search"></i>
+                </div>
+                <button class="login-btn">log in</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Create product</h2>
+        <form id="productForm">
+            <div>
+                <label>Brand</label>
+                <input type="text" id="brand" required>
+            </div>
+            <div>
+                <label>Model</label>
+                <input type="text" id="model" required>
+            </div>
+            <div>
+                <label>Category</label>
+                <input type="text" id="category" required>
+            </div>
+            <div>
+                <label>Description</label>
+                <textarea id="description"></textarea>
+            </div>
+            <div>
+                <label>Price</label>
+                <input type="number" id="price" required>
+            </div>
+            <div>
+                <label>Rating</label>
+                <input type="number" id="rating" min="0" max="5" required>
+            </div>
+            <div>
+                <label>Image URL</label>
+                <input type="text" id="imageURL" oninput="previewImage()" required>
+                <div class="preview">
+                    <span>Preview</span>
+                    <img id="imagePreview" src="" alt="">
+                </div>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="save-btn">Save</button>
+                <button type="reset" class="reset-btn">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column footer-subscribe">
+                <h3>Exclusive</h3>
+                <p>Subscribe</p>
+                <p>Get 10% off your first order</p>
+                <div class="email-input-wrapper">
+                    <input type="email" placeholder="Enter your email">
+                    <button class="subscribe-btn">→</button>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Support</h3>
+                <p>111 Bijoy sarani, Dhaka,<br>DH 1515, Bangladesh.</p>
+                <p>exclusive@gmail.com</p>
+                <p>+88015-88888-9999</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Account</h3>
+                <a href="#">My Account</a>
+                <a href="#">Login / Register</a>
+                <a href="#">Cart</a>
+                <a href="#">Wishlist</a>
+                <a href="#">Shop</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Link</h3>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms Of Use</a>
+                <a href="#">FAQ</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Download App</h3>
+                <p style="font-size: 11px; opacity: 0.8;">Save $3 with App New User Only</p>
+                <div class="qr-and-apps">
+                    <img src="qrcode.svg" alt="" class="qr-code">
+                    <div class="app-buttons">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                            alt="Google Play">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
+                            alt="App Store">
+                    </div>
+                </div>
+                <div class="social-icons">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin-in"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © Copyright Rimel 2022. All right reserved
+        </div>
+    </footer>
+
+    <script>
+        function previewImage() {
+            const url = document.getElementById("imageURL").value;
+            const img = document.getElementById("imagePreview");
+            img.src = url;
+        }
+
+        document.getElementById("productForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const product = {
+                brand: document.getElementById("brand").value,
+                model: document.getElementById("model").value,
+                category: document.getElementById("category").value,
+                description: document.getElementById("description").value,
+                price: document.getElementById("price").value,
+                rating: document.getElementById("rating").value,
+                imageURL: document.getElementById("imageURL").value
+            };
+
+            let products = JSON.parse(localStorage.getItem("products")) || [];
+            products.push(product);
+            localStorage.setItem("products", JSON.stringify(products));
+
+            alert("Product saved successfully!");
+            window.location.href = "userproducts.html";
+        });
+    </script>
+
+</body>
+
+</html>

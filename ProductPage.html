@@ -18,7 +18,6 @@
             background-color: #f5f5f5;
         }
 
-        /* Top Banner */
         .top-banner {
             background: linear-gradient(to right, #e74c3c, #c0392b);
             color: white;
@@ -34,7 +33,6 @@
             font-weight: 500;
         }
 
-        /* Header */
         header {
             background: white;
             padding: 15px 80px;
@@ -101,14 +99,6 @@
             border-radius: 4px;
         }
 
-        .search-icon {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
-
         .login-btn {
             background: #e74c3c;
             color: white;
@@ -124,7 +114,6 @@
             background: #c0392b;
         }
 
-        /* Main Content */
         .page-title {
             max-width: 1200px;
             margin: 40px auto 30px;
@@ -260,7 +249,6 @@
             color: #666;
         }
 
-        /* Related Items */
         .related-section {
             max-width: 1200px;
             margin: 60px auto;
@@ -432,7 +420,6 @@
             line-height: 1.7;
         }
 
-        /* Subscribe section */
         .footer-subscribe input {
             width: 80%;
             padding: 10px;
@@ -458,7 +445,6 @@
             background: #e74c3c;
         }
 
-
         .qr-code {
             width: 80px;
             height: 80px;
@@ -473,7 +459,6 @@
             margin-bottom: 8px;
         }
 
-        /* Social icons */
         .social-icons {
             display: flex;
             gap: 15px;
@@ -490,7 +475,6 @@
             opacity: 0.7;
         }
 
-        /* Bottom line */
         .footer-bottom {
             text-align: center;
             padding-top: 25px;
@@ -499,14 +483,14 @@
             opacity: 0.9;
         }
 
-        @media(max-width: 900px) {
+        @media(max-width:900px) {
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 30px;
             }
         }
 
-        @media(max-width: 600px) {
+        @media(max-width:600px) {
             .footer-content {
                 grid-template-columns: 1fr;
                 text-align: center;
@@ -526,19 +510,16 @@
 </head>
 
 <body>
-    <!-- Top Banner -->
-    <div class="top-banner">
-        Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! <a href="#">ShopNow</a>
+    <div class="top-banner">Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! <a href="#">ShopNow</a>
     </div>
 
-    <!-- Header -->
     <header>
         <div class="logo">E-commerce</div>
         <nav>
-            <a href="#">Home</a>
-            <a href="#">Contact</a>
-            <a href="#">About</a>
-            <a href="#">Sign Up</a>
+            <a href="index.html">Home</a>
+            <a href="Contact.html">Contact</a>
+            <a href="about.html">About</a>
+            <a href="signup.html">Sign Up</a>
             <button class="shop-btn">Shop</button>
         </nav>
         <div class="header-right">
@@ -546,38 +527,26 @@
                 <input type="text" class="search-bar" placeholder="What are you looking for?">
                 <i class="fas fa-search"></i>
             </div>
-            <button class="login-btn">Log in</button>
+            <button class="signup-btn">log in</button>
         </div>
     </header>
 
-    <!-- Page Title -->
     <h1 class="page-title">Product page</h1>
 
-    <!-- Product Section -->
     <div class="product-container">
         <div class="product-image">
-            <!-- Şəkil buraya əlavə et -->
-            <img src="sony-playstation-5-dualsense-white-removebg-preview.png" alt="">
+            <img src="" alt="">
         </div>
-
         <div class="product-info">
-            <h2 class="product-title">Havic HV G-92 Gamepad</h2>
-
+            <h2 class="product-title"></h2>
             <div class="rating-container">
                 <span class="stars">★★★★★</span>
-                <span class="reviews">(150 Reviews)</span>
+                <span class="reviews">(0 Reviews)</span>
                 <span class="stock">In Stock</span>
             </div>
-
-            <div class="price">$192.00</div>
-
-            <p class="product-description">
-                PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install
-                & mess free removal Pressure sensitive.
-            </p>
-
+            <div class="price">$0.00</div>
+            <p class="product-description">Loading description...</p>
             <button class="add-to-cart-btn">Add to cart</button>
-
             <div class="delivery-info">
                 <div class="delivery-item">
                     <div class="delivery-icon">🚚</div>
@@ -597,87 +566,16 @@
         </div>
     </div>
 
-    <!-- Related Items -->
     <div class="related-section">
         <div class="section-header">
             <div class="section-line"></div>
-            <h3 class="section-title">Related Item</h3>
+            <h3 class="section-title">Related Items</h3>
         </div>
-
-        <div class="products-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <div class="product-card-image">
-                    <img src="console.png" alt="">
-                </div>
-                <div class="product-card-info">
-                    <h4 class="product-card-title">HAVIT HV-G92 Gamepad</h4>
-                    <div class="product-card-price">
-                        <span class="current-price">$120</span>
-                        <span class="old-price">$160</span>
-                    </div>
-                    <div class="product-card-rating">
-                        <span class="product-card-stars">★★★★★</span>
-                        <span class="product-card-reviews">(88)</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="product-card">
-                <div class="product-card-image">
-                    <img src="Great-keyboard-removebg-preview.png" alt="">
-                </div>
-                <div class="product-card-info">
-                    <h4 class="product-card-title">AK-900 Wired Keyboard</h4>
-                    <div class="product-card-price">
-                        <span class="current-price">$960</span>
-                        <span class="old-price">$1160</span>
-                    </div>
-                    <div class="product-card-rating">
-                        <span class="product-card-stars">★★★★☆</span>
-                        <span class="product-card-reviews">(75)</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card">
-                <div class="product-card-image">
-                    <img src="images__3_-removebg-preview.png" alt="">
-                </div>
-                <div class="product-card-info">
-                    <h4 class="product-card-title">IPS LCD Gaming Monitor</h4>
-                    <div class="product-card-price">
-                        <span class="current-price">$370</span>
-                        <span class="old-price">$400</span>
-                    </div>
-                    <div class="product-card-rating">
-                        <span class="product-card-stars">★★★★★</span>
-                        <span class="product-card-reviews">(99)</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="product-card">
-                <div class="product-card-image">
-                    <img src="indir__2_-removebg-preview.png" alt="">
-                </div>
-                <div class="product-card-info">
-                    <h4 class="product-card-title">RGB liquid CPU Cooler</h4>
-                    <div class="product-card-price">
-                        <span class="current-price">$160</span>
-                        <span class="old-price">$170</span>
-                    </div>
-                    <div class="product-card-rating">
-                        <span class="product-card-stars">★★★★★</span>
-                        <span class="product-card-reviews">(65)</span>
-                    </div>
-                </div>
-            </div>
+        <div class="products-grid" id="related-products">
+            <!-- Buraya JS ile ürünler eklenecek -->
         </div>
     </div>
+
     <footer>
         <div class="footer-content">
             <div class="footer-column footer-subscribe">
@@ -689,14 +587,12 @@
                     <button class="subscribe-btn">→</button>
                 </div>
             </div>
-
             <div class="footer-column">
                 <h3>Support</h3>
                 <p>111 Bijoy sarani, Dhaka,<br>DH 1515, Bangladesh.</p>
                 <p>exclusive@gmail.com</p>
                 <p>+88015-88888-9999</p>
             </div>
-
             <div class="footer-column">
                 <h3>Account</h3>
                 <a href="#">My Account</a>
@@ -705,7 +601,6 @@
                 <a href="#">Wishlist</a>
                 <a href="#">Shop</a>
             </div>
-
             <div class="footer-column">
                 <h3>Quick Link</h3>
                 <a href="#">Privacy Policy</a>
@@ -713,10 +608,9 @@
                 <a href="#">FAQ</a>
                 <a href="#">Contact</a>
             </div>
-
             <div class="footer-column">
                 <h3>Download App</h3>
-                <p style="font-size: 11px; opacity: 0.8;">Save $3 with App New User Only</p>
+                <p style="font-size:11px;opacity:0.8;">Save $3 with App New User Only</p>
                 <div class="qr-and-apps">
                     <img src="qrcode.svg" alt="" class="qr-code">
                     <div class="app-buttons">
@@ -734,21 +628,87 @@
                 </div>
             </div>
         </div>
-
-        <div class="footer-bottom">
-            © Copyright Rimel 2022. All right reserved
-        </div>
+        <div class="footer-bottom">© Copyright Rimel 2022. All right reserved</div>
     </footer>
+
+    <script src="auth.js"></script>
+
     <script>
-        document.querySelector('.add-to-cart-btn').addEventListener('click', function () {
-            alert('Product added to cart!');
-        });
-        document.querySelectorAll('.product-card').forEach(card => {
-            card.addEventListener('click', function () {
-                alert('Opening product details...');
-            });
-        });
+        const apiUrl = "http://195.26.245.5:9505/api/products";
+
+        function getProductId() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
+        }
+
+        function getStars(rating) {
+            const fullStars = Math.floor(rating);
+            const emptyStars = 5 - fullStars;
+            return '★'.repeat(fullStars) + '☆'.repeat(emptyStars);
+        }
+
+        async function loadProduct() {
+            const productId = getProductId();
+            if (!productId) return;
+
+            try {
+                const response = await fetch(apiUrl);
+                const products = await response.json();
+                const product = products.find(p => p.id == productId);
+                if (!product) return;
+
+                document.querySelector('.product-image img').src = product.imageUrl || 'https://via.placeholder.com/400';
+                document.querySelector('.product-image img').alt = `${product.brand} ${product.model}`;
+
+                document.querySelector('.product-title').textContent = `${product.brand} ${product.model}`;
+                document.querySelector('.stars').textContent = getStars(product.averageRating || 0);
+                document.querySelector('.reviews').textContent = `(0 Reviews)`;
+                document.querySelector('.stock').textContent = product.price > 0 ? 'In Stock' : 'Out of Stock';
+                document.querySelector('.price').textContent = `$${product.price.toFixed(2)}`;
+                document.querySelector('.product-description').textContent = product.description || "No description available.";
+
+                document.querySelector('.add-to-cart-btn').onclick = function () {
+                    alert(`Added to cart: ${product.brand} ${product.model}`);
+                }
+
+                // Related products
+                const relatedContainer = document.getElementById('related-products');
+                relatedContainer.innerHTML = '';
+
+                const relatedProducts = products.filter(p => p.id != productId).slice(0, 4); // max 4 öneri
+                relatedProducts.forEach(rp => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <div class="product-card-image">
+                            <img src="${rp.imageUrl || 'https://via.placeholder.com/200'}" alt="${rp.brand} ${rp.model}">
+                        </div>
+                        <div class="product-card-info">
+                            <h4 class="product-card-title">${rp.brand} ${rp.model}</h4>
+                            <div class="product-card-price">
+                                <span class="current-price">$${rp.price.toFixed(2)}</span>
+                                ${rp.oldPrice ? `<span class="old-price">$${rp.oldPrice.toFixed(2)}</span>` : ''}
+                            </div>
+                            <div class="product-card-rating">
+                                <span class="product-card-stars">${getStars(rp.averageRating || 0)}</span>
+                                <span class="product-card-reviews">(0)</span>
+                            </div>
+                        </div>
+                    `;
+                    card.onclick = () => {
+                        window.location.href = `?id=${rp.id}`;
+                    };
+                    relatedContainer.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error('Product load error:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProduct);
     </script>
+
 </body>
 
 </html>

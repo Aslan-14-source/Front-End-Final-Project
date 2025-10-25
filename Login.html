@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <title>Log in</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-
-<body>
     <style>
         * {
             margin: 0;
@@ -23,7 +20,6 @@
             flex-direction: column;
         }
 
-        /* Top Banner */
         .top-banner {
             background: linear-gradient(to right, #e74c3c, #c0392b);
             color: white;
@@ -38,7 +34,6 @@
             margin-left: 5px;
         }
 
-        /* Header */
         header {
             background: white;
             padding: 15px 50px;
@@ -74,6 +69,7 @@
             cursor: pointer;
             font-size: 14px;
             border-radius: 4px;
+            text-decoration: none;
         }
 
         .header-right {
@@ -89,37 +85,24 @@
             font-size: 13px;
         }
 
-        .icons {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .wishlist-btn,
-        .cart-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
+        /* ⭐⭐⭐ SIGNUP BUTONU STYLE'I - BURAYA EKLE ⭐⭐⭐ */
         .signup-btn {
-            background: #e74c3c;
+            background-color: #e74c3c;
             color: white;
-            padding: 8px 20px;
+            padding: 8px 25px;
             border: none;
-            cursor: pointer;
-            font-size: 13px;
             border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
             transition: background 0.3s ease;
         }
 
         .signup-btn:hover {
-            background: #c0392b;
+            background-color: #c0392b;
         }
+
+        /* ⭐⭐⭐ SIGNUP BUTONU STYLE'I - SONU ⭐⭐⭐ */
 
         .account-section {
             max-width: 500px;
@@ -155,7 +138,7 @@
         }
 
         .create-btn {
-            width: 90%;
+            width: 100%;
             background: #e74c3c;
             color: white;
             border: none;
@@ -177,6 +160,7 @@
             color: white;
             padding: 60px 80px 30px 80px;
             font-family: 'Poppins', sans-serif;
+            margin-top: auto;
         }
 
         .footer-content {
@@ -202,7 +186,6 @@
             line-height: 1.7;
         }
 
-        /* Subscribe section */
         .footer-subscribe input {
             width: 80%;
             padding: 10px;
@@ -228,7 +211,6 @@
             background: #e74c3c;
         }
 
-
         .qr-code {
             width: 80px;
             height: 80px;
@@ -243,7 +225,6 @@
             margin-bottom: 8px;
         }
 
-        /* Social icons */
         .social-icons {
             display: flex;
             gap: 15px;
@@ -260,7 +241,6 @@
             opacity: 0.7;
         }
 
-        /* Bottom line */
         .footer-bottom {
             text-align: center;
             padding-top: 25px;
@@ -293,7 +273,9 @@
             }
         }
     </style>
+</head>
 
+<body>
     <div class="top-banner">
         Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! <a href="#">ShopNow</a>
     </div>
@@ -302,29 +284,29 @@
         <div class="logo">E-commerce</div>
         <nav>
             <a href="index.html">Home</a>
-            <a href="#">Contact</a>
-            <a href="#">About</a>
-            <a href="#">Sign Up</a>
-            <button class="shop-btn">Shop</button>
+            <a href="Contact.html">Contact</a>
+            <a href="about.html">About</a>
+            <a href="signup.html">Sign Up</a>
+            <button class="shop-btn"><a href="shop.html" style="color: white;">Shop</a></button>
         </nav>
         <div class="header-right">
             <input type="text" class="search-bar" placeholder="What are you looking for?">
             <i class="fas fa-search"></i>
-            <div class="icons">
-                <button class="signup-btn">Log out</button>
-            </div>
+            <button class="signup-btn">log in</button>
         </div>
     </header>
 
     <section class="account-section">
         <h2>Log in</h2>
-        <form id="accountForm">
-            <p>Username</p>
-            <input type="text" required>
-            <p>Password</p>
-            <input type="password" required>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username or Email" required>
+            <input type="password" id="password" placeholder="Password" required>
             <button type="submit" class="create-btn">Log in</button>
         </form>
+        <p style="text-align: center; margin-top: 20px; font-size: 14px;">
+            Don't have an account? <a href="signup.html"
+                style="color: #e74c3c; text-decoration: none; font-weight: 600;">Sign up</a>
+        </p>
     </section>
 
     <footer>
@@ -389,7 +371,28 @@
         </div>
     </footer>
 
+    <script src="auth.js"></script>
 
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!username || !password) {
+                alert('Zəhmət olmasa bütün xanaları doldurun!');
+                return;
+            }
+
+            const result = loginUser(username, password);
+            if (result.success) {
+                alert(result.message);
+                window.location.href = 'index.html';
+            } else {
+                alert(result.message);
+            }
+        });
+    </script>
 </body>
 
 </html>

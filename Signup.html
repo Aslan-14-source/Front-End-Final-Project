@@ -4,12 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Create an Account</title>
-  <link rel="stylesheet" href="chat.css">
-  <script defer src="chat.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-
-<body>
   <style>
     * {
       margin: 0;
@@ -20,9 +15,11 @@
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Top Banner */
     .top-banner {
       background: linear-gradient(to right, #e74c3c, #c0392b);
       color: white;
@@ -37,7 +34,6 @@
       margin-left: 5px;
     }
 
-    /* Header */
     header {
       background: white;
       padding: 15px 50px;
@@ -72,6 +68,8 @@
       border: none;
       cursor: pointer;
       font-size: 14px;
+      border-radius: 4px;
+      text-decoration: none;
     }
 
     .header-right {
@@ -87,77 +85,77 @@
       font-size: 13px;
     }
 
-    .icons {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
-
-    .wishlist-btn,
-    .cart-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .signup-btn {
-      background: #e74c3c;
-      color: white;
-      padding: 8px 20px;
-      border: none;
-      cursor: pointer;
-      font-size: 13px;
-      border-radius: 4px;
-      transition: background 0.3s ease;
-    }
-
-    .nav-center input {
-      padding: 5px 10px;
-      border-radius: 5px;
-      border: none;
-    }
-
-    /* 🧾 Account Form */
     .account-section {
-      max-width: 400px;
-      margin: 40px auto;
+      max-width: 500px;
+      margin: 60px auto;
       background: white;
-      padding: 20px;
+      padding: 40px;
       border-radius: 10px;
-
     }
 
     .account-section h2 {
       text-align: center;
-      color: #000000;
+      font-size: 28px;
+      color: #2c3e50;
+      margin-bottom: 30px;
+      font-weight: 600;
     }
 
-    .account-section form input {
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-group input {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      padding: 12px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #e74c3c;
     }
 
     .create-btn {
       width: 100%;
-      background: #e24040;
+      background: #e74c3c;
       color: white;
       border: none;
-      padding: 10px;
-      font-weight: bold;
-      border-radius: 5px;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 6px;
       cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .create-btn:hover {
+      background: #c0392b;
     }
 
     .login-link {
       text-align: center;
-      margin-top: 10px;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .login-link a {
+      color: #e74c3c;
+      text-decoration: none;
+      font-weight: 600;
     }
 
     footer {
@@ -165,6 +163,7 @@
       color: white;
       padding: 60px 80px 30px 80px;
       font-family: 'Poppins', sans-serif;
+      margin-top: auto;
     }
 
     .footer-content {
@@ -190,7 +189,6 @@
       line-height: 1.7;
     }
 
-    /* Subscribe section */
     .footer-subscribe input {
       width: 80%;
       padding: 10px;
@@ -216,7 +214,6 @@
       background: #e74c3c;
     }
 
-
     .qr-code {
       width: 80px;
       height: 80px;
@@ -231,7 +228,6 @@
       margin-bottom: 8px;
     }
 
-    /* Social icons */
     .social-icons {
       display: flex;
       gap: 15px;
@@ -248,7 +244,6 @@
       opacity: 0.7;
     }
 
-    /* Bottom line */
     .footer-bottom {
       text-align: center;
       padding-top: 25px;
@@ -281,6 +276,9 @@
       }
     }
   </style>
+</head>
+
+<body>
   <div class="top-banner">
     Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! <a href="#">ShopNow</a>
   </div>
@@ -289,33 +287,41 @@
     <div class="logo">E-commerce</div>
     <nav>
       <a href="index.html">Home</a>
-      <a href="#">Contact</a>
-      <a href="#">About</a>
-      <a href="№">Sign Up</a>
-      <button class="shop-btn">Shop</button>
+      <a href="Contact.html">Contact</a>
+      <a href="about.html">About</a>
+      <a href="signup.html">Sign Up</a>
+      <button class="shop-btn"><a href="shop.html" style="color: white;">Shop</a></button>
     </nav>
     <div class="header-right">
       <input type="text" class="search-bar" placeholder="What are you looking for?">
       <i class="fas fa-search"></i>
-      <div class="icons">
-        <button class="signup-btn">log in</button>
-      </div>
+      <button class="signup-btn">log in</button>
     </div>
   </header>
 
   <section class="account-section">
     <h2>Create an account</h2>
-    <form id="accountForm">
-      <p>Name</p>
-      <input type="text" required>
-      <p>Surname</p>
-      <input type="text" required>
-      <p>Email</p>
-      <input type="email" required>
-      <p>Username</p>
-      <input type="text" required>
-      <p>Password</p>
-      <input type="password" required>
+    <form id="signupForm">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label>Surname</label>
+        <input type="text" id="surname" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="username" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="password" required>
+      </div>
       <button type="submit" class="create-btn">Create account</button>
     </form>
     <p class="login-link">Already have an account? <a href="Login.html">Log in</a></p>
@@ -382,10 +388,31 @@
       © Copyright Rimel 2022. All right reserved
     </div>
   </footer>
-  <script>document.getElementById("accountForm").addEventListener("submit", function (e) {
+
+  <script src="auth.js"></script>
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
       e.preventDefault();
-      alert("Account created successfully!");
-    });</script>
+      const name = document.getElementById('name').value.trim();
+      const surname = document.getElementById('surname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!name || !surname || !email || !username || !password) {
+        alert('Lütfen tüm alanları doldurun!');
+        return;
+      }
+
+      const result = registerUser(name, surname, email, username, password);
+      if (result.success) {
+        alert(result.message);
+        window.location.href = 'Login.html';
+      } else {
+        alert(result.message);
+      }
+    });
+  </script>
 </body>
 
 </html>

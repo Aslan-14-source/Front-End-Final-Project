@@ -32,7 +32,6 @@
             margin-left: 5px;
         }
 
-        /* Header */
         header {
             background: white;
             padding: 15px 50px;
@@ -252,6 +251,30 @@
             background-color: #c82333;
         }
 
+        .empty-cart {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+
+        .empty-cart h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .continue-shopping {
+            background: #e74c3c;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
         @media (max-width: 768px) {
             .container {
                 margin: 20px;
@@ -303,7 +326,6 @@
             line-height: 1.7;
         }
 
-        /* Subscribe section */
         .footer-subscribe input {
             width: 80%;
             padding: 10px;
@@ -343,7 +365,6 @@
             margin-bottom: 8px;
         }
 
-        /* Social icons */
         .social-icons {
             display: flex;
             gap: 15px;
@@ -360,7 +381,6 @@
             opacity: 0.7;
         }
 
-        /* Bottom line */
         .footer-bottom {
             text-align: center;
             padding-top: 25px;
@@ -396,20 +416,18 @@
 </head>
 
 <body>
-    <!-- Top Banner -->
     <div class="top-banner">
         Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%! <a href="#">ShopNow</a>
     </div>
 
-    <!-- Header -->
     <header>
         <div class="logo">E-commerce</div>
         <nav>
-            <a href="#">Home</a>
+            <a href="index.html">Home</a>
             <a href="#">Contact</a>
             <a href="#">About</a>
             <a href="#">Sign Up</a>
-            <button class="shop-btn">Shop</button>
+            <button class="shop-btn" onclick="window.location.href='Shop.html'">Shop</button>
         </nav>
         <div class="header-right">
             <input type="text" class="search-bar" placeholder="What are you looking for?">
@@ -423,76 +441,8 @@
     <div class="container">
         <h1>Cart</h1>
 
-        <div class="cart-table">
-            <div class="cart-header">
-                <div>Product</div>
-                <div>Price</div>
-                <div>Quantity</div>
-                <div>Subtotal</div>
-                <div></div>
-            </div>
-
-            <div class="cart-item" data-price="19.99">
-                <div class="product-info">
-                    <img src="tshirt-removebg-preview.png" alt="T-Shirt" class="product-image">
-                    <div class="product-name">Hanes Cotton T-Shirt</div>
-                </div>
-                <div class="price">$19.99</div>
-                <div class="quantity">
-                    <input type="number" class="quantity-input" value="1" min="1" onchange="updateCart()">
-                </div>
-                <div class="subtotal">$19.99</div>
-                <div>
-                    <button class="remove-btn" onclick="removeItem(this)">Remove</button>
-                </div>
-            </div>
-
-            <div class="cart-item" data-price="89.99">
-                <div class="product-info">
-                    <img src="nike-removebg-preview.png" alt="Nike Shoes" class="product-image">
-                    <div class="product-name">Nike Running Shoes</div>
-                </div>
-                <div class="price">$89.99</div>
-                <div class="quantity">
-                    <input type="number" class="quantity-input" value="1" min="1" onchange="updateCart()">
-                </div>
-                <div class="subtotal">$89.99</div>
-                <div>
-                    <button class="remove-btn" onclick="removeItem(this)">Remove</button>
-                </div>
-            </div>
-
-            <div class="cart-item" data-price="79.99">
-                <div class="product-info">
-                    <img src="canta-removebg-preview.png" alt="Backpack" class="product-image">
-                    <div class="product-name">Samsonite Backpack</div>
-                </div>
-                <div class="price">$79.99</div>
-                <div class="quantity">
-                    <input type="number" class="quantity-input" value="1" min="1" onchange="updateCart()">
-                </div>
-                <div class="subtotal">$79.99</div>
-                <div>
-                    <button class="remove-btn" onclick="removeItem(this)">Remove</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="cart-summary">
-            <div class="summary-title">Cart Total</div>
-            <div class="summary-row">
-                <span>Subtotal:</span>
-                <span id="subtotal">$189.97</span>
-            </div>
-            <div class="summary-row">
-                <span>Shipping:</span>
-                <span>Free</span>
-            </div>
-            <div class="summary-row total">
-                <span>Total:</span>
-                <span id="total">$189.97</span>
-            </div>
-            <button class="checkout-btn">Process to checkout</button>
+        <div id="cartContent">
+            <!-- Səbət məzmunu JavaScript ilə yüklənəcək -->
         </div>
     </div>
 
@@ -559,31 +509,174 @@
     </footer>
 
     <script>
-        function updateCart() {
-            let subtotal = 0;
-            const items = document.querySelectorAll('.cart-item');
+        const API_BASE_URL = 'http://195.26.245.5:9505';
 
-            items.forEach(item => {
-                const price = parseFloat(item.dataset.price);
-                const quantity = parseInt(item.querySelector('.quantity-input').value);
-                const itemSubtotal = price * quantity;
+        // Səhifə yükləndikdə səbəti göstər
+        document.addEventListener('DOMContentLoaded', function () {
+            loadCart();
+        });
 
-                item.querySelector('.subtotal').textContent = '$' + itemSubtotal.toFixed(2);
-                subtotal += itemSubtotal;
+        // Səbəti yüklə
+        async function loadCart() {
+            try {
+                // localStorage-dan səbəti götür
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+                // Əgər localStorage boşdursa, default məhsulları əlavə et
+                if (cart.length === 0) {
+                    cart = [
+                        {
+                            id: 1,
+                            name: "Hanes Cotton T-Shirt",
+                            price: 19.99,
+                            image: "tshirt-removebg-preview.png",
+                            quantity: 1
+                        },
+                        {
+                            id: 2,
+                            name: "Nike Running Shoes",
+                            price: 89.99,
+                            image: "nike-removebg-preview.png",
+                            quantity: 1
+                        },
+                        {
+                            id: 3,
+                            name: "Samsonite Backpack",
+                            price: 79.99,
+                            image: "canta-removebg-preview.png",
+                            quantity: 1
+                        }
+                    ];
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                }
+
+                displayCart(cart);
+            } catch (error) {
+                console.error('Səbət yüklənərkən xəta:', error);
+                showEmptyCart();
+            }
+        }
+
+        // Boş səbəti göstər
+        function showEmptyCart() {
+            document.getElementById('cartContent').innerHTML = `
+                <div class="empty-cart">
+                    <h2>Səbətiniz boşdur</h2>
+                    <p>Məhsulları səbətə əlavə etmək üçün mağazaya keçin</p>
+                    <a href="Shop.html" class="continue-shopping">Alış-verişə davam et</a>
+                </div>
+            `;
+        }
+
+        // Səbəti göstər
+        function displayCart(cart) {
+            let cartHTML = `
+                <div class="cart-table">
+                    <div class="cart-header">
+                        <div>Product</div>
+                        <div>Price</div>
+                        <div>Quantity</div>
+                        <div>Subtotal</div>
+                        <div></div>
+                    </div>
+            `;
+
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.quantity;
+                cartHTML += `
+                    <div class="cart-item" data-index="${index}" data-price="${item.price}">
+                        <div class="product-info">
+                            <img src="${item.image || 'https://via.placeholder.com/80?text=No+Image'}" 
+                                 alt="${item.name}" 
+                                 class="product-image"
+                                 onerror="this.src='https://via.placeholder.com/80?text=No+Image'">
+                            <div class="product-name">${item.name}</div>
+                        </div>
+                        <div class="price">$${item.price.toFixed(2)}</div>
+                        <div class="quantity">
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
+                        </div>
+                        <div class="subtotal">$${subtotal.toFixed(2)}</div>
+                        <div>
+                            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                        </div>
+                    </div>
+                `;
             });
 
-            document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
-            document.getElementById('total').textContent = '$' + subtotal.toFixed(2);
+            cartHTML += `</div>`;
+
+            // Cəmi hesabla
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            cartHTML += `
+                <div class="cart-summary">
+                    <div class="summary-title">Cart Total</div>
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping:</span>
+                        <span>Free</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="total">$${subtotal.toFixed(2)}</span>
+                    </div>
+                    <button class="checkout-btn" onclick="checkout()">Process to checkout</button>
+                </div>
+            `;
+
+            document.getElementById('cartContent').innerHTML = cartHTML;
         }
 
-        function removeItem(button) {
-            const item = button.closest('.cart-item');
-            item.remove();
-            updateCart();
+        // Miqdarı yenilə
+        function updateQuantity(index, newQuantity) {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            if (newQuantity < 1) {
+                newQuantity = 1;
+            }
+
+            cart[index].quantity = parseInt(newQuantity);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            loadCart();
         }
 
-        // İlk yükləmədə cəmi hesabla
-        updateCart();
+        // Məhsulu sil
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            loadCart();
+        }
+
+        // Checkout
+        function checkout() {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            if (cart.length === 0) {
+                alert('Səbətiniz boşdur!');
+                return;
+            }
+
+            // API-yə checkout sorğusu göndərməyə çalış
+            try {
+                // Burada API-yə sorğu göndərilə bilər
+                alert('Sifariş uğurla tamamlandı! Ümumi məbləğ: $' + 
+                      cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2));
+                
+                // Səbəti təmizlə
+                localStorage.removeItem('cart');
+                loadCart();
+            } catch (error) {
+                console.error('Checkout xətası:', error);
+                alert('Sifariş zamanı xəta baş verdi!');
+            }
+        }
     </script>
 </body>
 

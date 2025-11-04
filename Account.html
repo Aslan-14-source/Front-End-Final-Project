@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         * {
             margin: 0;
@@ -13,16 +14,16 @@
         }
 
         body {
-            font-family: 'Poppins', Arial, sans-serif;
-            background-color: #fff;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
         }
 
-        /* Top Banner */
         .top-banner {
-            background: #e74c3c;
+            background: linear-gradient(to right, #e74c3c, #c0392b);
             color: white;
             text-align: center;
-            padding: 10px;
+            padding: 8px 0;
             font-size: 13px;
         }
 
@@ -32,14 +33,13 @@
             margin-left: 5px;
         }
 
-        /* Header */
         header {
             background: white;
-            padding: 15px 80px;
+            padding: 15px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
@@ -50,15 +50,14 @@
 
         nav {
             display: flex;
-            gap: 40px;
+            gap: 30px;
             align-items: center;
         }
 
         nav a {
             text-decoration: none;
             color: #333;
-            font-size: 15px;
-            transition: 0.3s;
+            font-size: 14px;
         }
 
         nav a:hover {
@@ -68,11 +67,11 @@
         .shop-btn {
             background: #e74c3c;
             color: white;
-            padding: 8px 25px;
+            padding: 8px 20px;
             border: none;
             cursor: pointer;
-            font-size: 15px;
-            transition: 0.3s;
+            font-size: 14px;
+            border-radius: 4px;
         }
 
         .shop-btn:hover {
@@ -85,44 +84,66 @@
             gap: 20px;
         }
 
-        .search-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
         .search-bar {
-            padding: 8px 40px 8px 15px;
+            padding: 8px 15px;
             border: 1px solid #ddd;
-            width: 250px;
+            width: 200px;
             font-size: 13px;
-            background: #f5f5f5;
-            outline: none;
+            border-radius: 4px;
         }
 
-        .search-icon {
-            position: absolute;
-            right: 12px;
+        .cart-btn {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
+            font-weight: 500;
         }
 
-        .login-btn {
+        .cart-btn:hover {
+            background-color: #f5f5f5;
+        }
+
+        .user-icon {
+            background: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            font-size: 18px;
+            display: none;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            color: black;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .user-icon:hover {
+            background-color: #f0f0f0;
+        }
+
+        .username-text {
+            font-size: 13px;
+        }
+
+        .signup-btn {
             background: #e74c3c;
             color: white;
             padding: 8px 20px;
             border: none;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 14px;
             border-radius: 4px;
             transition: background 0.3s ease;
+            font-weight: 500;
         }
 
-        .login-btn:hover {
+        .signup-btn:hover {
             background: #c0392b;
         }
 
-        /* Main Content */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -139,14 +160,20 @@
             margin-bottom: 30px;
             cursor: pointer;
             border: none;
+            text-decoration: none;
+        }
+
+        .badge:hover {
+            background-color: #c0392b;
         }
 
         .card {
+            width: 100%;
+            height: 100%;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            max-width: 600px;
+            padding: 33px;
         }
 
         h1 {
@@ -160,11 +187,14 @@
             margin-bottom: 20px;
             font-size: 16px;
             line-height: 1.6;
+            display: flex;
+            gap: 10px;
         }
 
         .label {
             font-weight: 600;
             color: #000;
+            min-width: 100px;
         }
 
         .value {
@@ -172,12 +202,18 @@
             font-weight: normal;
         }
 
-        /* Footer */
+        .error-message {
+            text-align: center;
+            padding: 40px;
+            color: #e74c3c;
+        }
+
         footer {
             background: #e74c3c;
             color: white;
             padding: 60px 80px 30px 80px;
-            font-family: 'Poppins', sans-serif;
+            font-family: "Poppins", sans-serif;
+            margin-top: 60px;
         }
 
         .footer-content {
@@ -203,82 +239,52 @@
             line-height: 1.7;
         }
 
-        .footer-column a:hover {
-            text-decoration: underline;
-        }
-
-        /* Subscribe section */
-        .footer-subscribe .email-input-wrapper {
-            position: relative;
-            margin-top: 15px;
-        }
-
         .footer-subscribe input {
-            width: 100%;
-            padding: 12px 45px 12px 15px;
-            border: 2px solid white;
+            width: 80%;
+            padding: 10px;
+            border: 1px solid white;
             background: transparent;
             color: white;
             font-size: 13px;
             outline: none;
-            border-radius: 4px;
         }
 
         .footer-subscribe input::placeholder {
-            color: rgba(255, 255, 255, 0.8);
+            color: #fff;
         }
 
         .subscribe-btn {
-            position: absolute;
-            right: 5px;
-            top: 50%;
-            transform: translateY(-50%);
             color: #ffffff;
             border: none;
-            background: transparent;
+            padding: 10px;
+            margin-left: -40px;
             cursor: pointer;
-            font-size: 18px;
-            padding: 0 10px;
-        }
-
-        .qr-and-apps {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-top: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            background: #e74c3c;
         }
 
         .qr-code {
             width: 80px;
             height: 80px;
             background: white;
+            margin-bottom: 10px;
             border-radius: 5px;
         }
 
-        .app-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
         .app-buttons img {
-            width: 110px;
-            cursor: pointer;
+            width: 120px;
+            display: block;
+            margin-bottom: 8px;
         }
 
-        /* Social icons */
         .social-icons {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .social-icons i {
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             font-size: 16px;
             cursor: pointer;
             transition: 0.3s;
@@ -288,7 +294,6 @@
             opacity: 0.7;
         }
 
-        /* Bottom line */
         .footer-bottom {
             text-align: center;
             padding-top: 25px;
@@ -297,40 +302,28 @@
             opacity: 0.9;
         }
 
-        @media(max-width: 1200px) {
-            header {
-                padding: 15px 40px;
-            }
-
-            .container {
-                padding: 40px;
-            }
-
-            footer {
-                padding: 50px 40px 30px 40px;
-            }
-        }
-
-        @media(max-width: 900px) {
-            nav {
-                gap: 20px;
-            }
-
+        @media (max-width: 900px) {
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 30px;
             }
         }
 
-        @media(max-width: 600px) {
+        @media (max-width: 600px) {
             header {
-                flex-direction: column;
-                gap: 15px;
+                padding: 15px 20px;
+                flex-wrap: wrap;
             }
 
             nav {
-                flex-wrap: wrap;
+                order: 3;
+                width: 100%;
+                margin-top: 15px;
                 justify-content: center;
+            }
+
+            .container {
+                padding: 30px 20px;
             }
 
             .footer-content {
@@ -338,70 +331,60 @@
                 text-align: center;
             }
 
-            .container {
-                padding: 30px 20px;
+            .footer-subscribe input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .subscribe-btn {
+                width: 100%;
+                margin-left: 0;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-    <!-- Top Banner -->
     <div class="top-banner">
         Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
         <a href="#">ShopNow</a>
     </div>
 
-    <!-- Header -->
     <header>
         <div class="logo">E-commerce</div>
         <nav>
             <a href="index.html">Home</a>
-            <a href="#">Contact</a>
-            <a href="#">About</a>
-            <a href="#">Sign Up</a>
-            <button class="shop-btn">Shop</button>
+            <a href="Contact.html">Contact</a>
+            <a href="About.html">About</a>
+            <a href="Signup.html">Sign Up</a>
+            <button class="shop-btn" onclick="window.location.href='Shop.html'">
+                Shop
+            </button>
         </nav>
         <div class="header-right">
-            <div class="search-container">
-                <input type="text" class="search-bar" placeholder="What are you looking for?">
-                <i class="fas fa-search"></i>
-            </div>
-            <button class="login-btn">log in</button>
+            <input type="text" class="search-bar" placeholder="What are you looking for?" />
+            <i class="fas fa-search"></i>
+            <button class="cart-btn">🛒</button>
+            <a href="Account.html" class="user-icon">
+                👤 <span class="username-text">username</span>
+            </a>
+            <button class="signup-btn">Log In</button>
         </div>
     </header>
 
-    <!-- Main Content -->
     <div class="container">
         <a href="userproducts.html" class="badge">My products for sale</a>
 
-        <div class="card">
+        <div class="card" id="userCard">
             <h1>User Details</h1>
 
-            <div class="detail-row">
-                <span class="label">Name:</span>
-                <span class="value">Aslan</span>
-            </div>
-
-            <div class="detail-row">
-                <span class="label">Surname:</span>
-                <span class="value">Gasimow</span>
-            </div>
-
-            <div class="detail-row">
-                <span class="label">Email:</span>
-                <span class="value">aslan.qasimov.2011@gmail.com</span>
-            </div>
-
-            <div class="detail-row">
-                <span class="label">Username:</span>
-                <span class="value">Gasimows</span>
-            </div>
+            <p><b>Name:</b> <span id="name"></span></p>
+            <p><b>Surname:</b> <span id="surname"></span></p>
+            <p><b>Email:</b> <span id="email"></span></p>
+            <p><b>Username:</b> <span id="username"></span></p>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-column footer-subscribe">
@@ -409,14 +392,14 @@
                 <p>Subscribe</p>
                 <p>Get 10% off your first order</p>
                 <div class="email-input-wrapper">
-                    <input type="email" placeholder="Enter your email">
+                    <input type="email" placeholder="Enter your email" />
                     <button class="subscribe-btn">→</button>
                 </div>
             </div>
 
             <div class="footer-column">
                 <h3>Support</h3>
-                <p>111 Bijoy sarani, Dhaka,<br>DH 1515, Bangladesh.</p>
+                <p>111 Bijoy sarani, Dhaka,<br />DH 1515, Bangladesh.</p>
                 <p>exclusive@gmail.com</p>
                 <p>+88015-88888-9999</p>
             </div>
@@ -440,14 +423,16 @@
 
             <div class="footer-column">
                 <h3>Download App</h3>
-                <p style="font-size: 11px; opacity: 0.8;">Save $3 with App New User Only</p>
+                <p style="font-size: 11px; opacity: 0.8">
+                    Save $3 with App New User Only
+                </p>
                 <div class="qr-and-apps">
-                    <img src="qrcode.svg" alt="" class="qr-code">
+                    <img src="img/qrcode.svg" alt="" class="qr-code" />
                     <div class="app-buttons">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                            alt="Google Play">
+                            alt="Google Play" />
                         <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
-                            alt="App Store">
+                            alt="App Store" />
                     </div>
                 </div>
                 <div class="social-icons">
@@ -463,6 +448,33 @@
             © Copyright Rimel 2022. All right reserved
         </div>
     </footer>
+
+    <script src="auth.js"></script>
+    <script>
+        function getUserProfile() {
+            let data = JSON.parse(localStorage.getItem('response'));
+            let token = data.token;
+
+            fetch(`http://195.26.245.5:9505/api/clients/get-details`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    return response.json()
+                })
+                .then(data => {
+                    console.log(data);
+                    document.getElementById('name').innerHTML = data.name;
+                    document.getElementById('surname').innerHTML = data.surname;
+                    document.getElementById('email').innerHTML = data.email;
+                    document.getElementById('username').innerHTML = data.username;
+                });
+        }
+
+        getUserProfile();
+    </script>
 </body>
 
 </html>

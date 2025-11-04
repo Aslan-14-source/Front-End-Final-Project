@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create Product</title>
+    <title>Edit Product</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -226,9 +226,9 @@
         margin-top: 10px;
       }
 
-      .save-btn {
+      .update-btn {
         flex: 1;
-        background-color: #28a745;
+        background-color: #007bff;
         color: white;
         padding: 12px;
         border: none;
@@ -239,11 +239,11 @@
         transition: background 0.3s;
       }
 
-      .save-btn:hover {
-        background-color: #218838;
+      .update-btn:hover {
+        background-color: #0056b3;
       }
 
-      .reset-btn {
+      .cancel-btn {
         flex: 1;
         background-color: #6c757d;
         color: white;
@@ -256,7 +256,7 @@
         transition: background 0.3s;
       }
 
-      .reset-btn:hover {
+      .cancel-btn:hover {
         background-color: #5a6268;
       }
 
@@ -368,7 +368,7 @@
     </header>
 
     <div class="container">
-      <h2>Create New Product</h2>
+      <h2>Edit Product</h2>
       <form id="productForm">
         <div class="form-group">
           <label>Brand *</label>
@@ -431,9 +431,13 @@
         </div>
 
         <div class="buttons">
-          <button type="submit" class="save-btn">💾 Save Product</button>
-          <button type="reset" class="reset-btn" onclick="resetPreview()">
-            🔄 Reset
+          <button type="submit" class="update-btn">💾 Update Product</button>
+          <button
+            type="button"
+            class="cancel-btn"
+            onclick="window.location.href='userproducts.html'"
+          >
+            🔙 Cancel
           </button>
         </div>
       </form>
@@ -496,6 +500,24 @@
 
     <script src="auth.js"></script>
     <script>
+      let productId = null;
+
+      function previewImage() {
+        const url = document.getElementById("imageURL").value;
+        const img = document.getElementById("imagePreview");
+
+        if (url) {
+          img.src = url;
+          img.style.display = "block";
+          img.onerror = function () {
+            this.src =
+              "https://via.placeholder.com/200x200/e8f4f8/333333?text=Invalid+URL";
+          };
+        } else {
+          img.style.display = "none";
+        }
+      }
+
       async function loadCategories() {
         const categorySelect = document.getElementById("category");
 
@@ -522,26 +544,38 @@
         }
       }
 
-      function previewImage() {
-        const url = document.getElementById("imageURL").value;
-        const img = document.getElementById("imagePreview");
+      async function loadProduct() {
+        if (!checkLogin()) return;
 
-        if (url) {
-          img.src = url;
-          img.style.display = "block";
-          img.onerror = function () {
-            this.src =
-              "https://via.placeholder.com/200x200/e8f4f8/333333?text=Invalid+URL";
-          };
-        } else {
-          img.style.display = "none";
+        const urlParams = new URLSearchParams(window.location.search);
+        productId = urlParams.get("id");
+
+        if (!productId) {
+          alert("Product not found!");
+          window.location.href = "userproducts.html";
+          return;
         }
-      }
 
-      function resetPreview() {
-        const img = document.getElementById("imagePreview");
-        img.style.display = "none";
-        img.src = "";
+        await loadCategories();
+
+        const product = await fetchProductById(productId);
+
+        if (!product) {
+          alert("Product not found!");
+          window.location.href = "userproducts.html";
+          return;
+        }
+
+        document.getElementById("brand").value = product.brand;
+        document.getElementById("model").value = product.model;
+        document.getElementById("category").value =
+          product.categoryId || product.category?.id;
+        document.getElementById("description").value =
+          product.description || "";
+        document.getElementById("price").value = product.price;
+        document.getElementById("imageURL").value = product.imageUrl;
+
+        previewImage();
       }
 
       document
@@ -549,12 +583,15 @@
         .addEventListener("submit", async function (e) {
           e.preventDefault();
 
-          if (!checkLogin()) return;
+          if (!productId) {
+            alert("Error: Product ID not found!");
+            return;
+          }
 
           const submitBtn = e.target.querySelector('button[type="submit"]');
           const originalText = submitBtn.textContent;
           submitBtn.disabled = true;
-          submitBtn.textContent = "Creating...";
+          submitBtn.textContent = "Updating...";
 
           const productData = {
             brand: document.getElementById("brand").value,
@@ -565,20 +602,20 @@
             imageUrl: document.getElementById("imageURL").value,
           };
 
-          const result = await createProduct(productData);
+          const result = await updateProduct(productId, productData);
 
           submitBtn.disabled = false;
           submitBtn.textContent = originalText;
 
           if (result.success) {
-            alert("Product created successfully!");
+            alert("Product updated successfully!");
             window.location.href = "userproducts.html";
           } else {
-            alert(result.message || "Failed to create product");
+            alert(result.message || "Failed to update product");
           }
         });
 
-      window.addEventListener("DOMContentLoaded", loadCategories);
+      window.addEventListener("DOMContentLoaded", loadProduct);
     </script>
   </body>
 </html>

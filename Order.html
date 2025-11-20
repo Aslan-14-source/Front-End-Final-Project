@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        .top-banner {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 13px;
+        }
+
+        .top-banner a {
+            color: white;
+            text-decoration: underline;
+            margin-left: 5px;
+        }
+
+        header {
+            background: white;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .shop-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-bar {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            width: 200px;
+            font-size: 13px;
+            border-radius: 4px;
+        }
+
+        .cart-btn {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .cart-btn:hover {
+            background-color: #f5f5f5;
+        }
+
+        .signup-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .signup-btn:hover {
+            background: #c0392b;
+        }
+
+        .user-icon {
+            background: white;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            font-size: 18px;
+            display: none;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            color: black;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .main-wrapper {
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        .top-bar {
+            max-width: 1200px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-box {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+            font-size: 14px;
+        }
+
+        .all-products-btn {
+            background-color: #e53935;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .sort-dropdown {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .order-box {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .item-card {
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background: #fafafa;
+        }
+
+        .item-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        footer {
+            background: #e74c3c;
+            color: white;
+            padding: 60px 80px 30px 80px;
+            font-family: "Poppins", sans-serif;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-column p,
+        .footer-column a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .footer-subscribe input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .footer-subscribe input::placeholder {
+            color: #fff;
+        }
+
+        .subscribe-btn {
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            margin-left: -40px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            background: #e74c3c;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons i {
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .social-icons i:hover {
+            opacity: 0.7;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 900px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-subscribe input {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .subscribe-btn {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-banner">
+        Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
+        <a href="#">ShopNow</a>
+    </div>
+
+    <header>
+        <div class="logo">E-commerce</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="Contact.html">Contact</a>
+            <a href="about.html">About</a>
+            <a href="signup.html">Sign Up</a>
+            <button class="shop-btn" onclick="window.location.href='shop.html'">
+                Shop
+            </button>
+        </nav>
+        <div class="header-right">
+            <input type="text" class="search-bar" placeholder="What are you looking for?" />
+            <i class="fas fa-search"></i>
+            <button class="cart-btn">🛒</button>
+            <a href="account.html" class="user-icon">
+                👤 <span class="username-text">username</span>
+            </a>
+            <button class="signup-btn">Log In</button>
+        </div>
+    </header>
+
+    <div class="container py-5">
+        <h2 class="mb-4 text-center">Order Detalları</h2>
+
+        <div id="orderContainer" class="order-box"></div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column footer-subscribe">
+                <h3>Exclusive</h3>
+                <p>Subscribe</p>
+                <p>Get 10% off your first order</p>
+                <div class="email-input-wrapper">
+                    <input type="email" placeholder="Enter your email" />
+                    <button class="subscribe-btn">→</button>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Support</h3>
+                <p>111 Bijoy sarani, Dhaka,<br />DH 1515, Bangladesh.</p>
+                <p>exclusive@gmail.com</p>
+                <p>+88015-88888-9999</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Account</h3>
+                <a href="#">My Account</a>
+                <a href="#">Login / Register</a>
+                <a href="#">Cart</a>
+                <a href="#">Wishlist</a>
+                <a href="#">Shop</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Link</h3>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms Of Use</a>
+                <a href="#">FAQ</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Download App</h3>
+                <p style="font-size: 11px; opacity: 0.8">
+                    Save $3 with App New User Only
+                </p>
+                <div class="social-icons">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin-in"></i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © Copyright Rimel 2022. All right reserved
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <script src="auth.js"></script>
+
+    <script>
+        const responsebody = JSON.parse(localStorage.getItem("body"));
+        const token = responsebody.token;
+
+        if (!token) {
+            document.getElementById("orderContainer").innerHTML =
+                `<p class="text-danger text-center">You must login to view your orders.</p>`;
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get("id"));
+
+        async function loadOrder() {
+            try {
+                const res = await fetch("http://195.26.245.5:9505/api/orders/by-customer-orders", {
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                });
+
+                const orders = await res.json();
+
+                const order = orders.find(o => o.id === id);
+
+                if (!order) {
+                    document.getElementById("orderContainer").innerHTML =
+                        `<p class="text-danger text-center">Order not found.</p>`;
+                    return;
+                }
+
+                renderOrder(order);
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById("orderContainer").innerHTML =
+                    `<p class="text-danger text-center">Error loading order.</p>`;
+            }
+        }
+
+        function renderOrder(order) {
+
+            let productsHTML = "";
+
+            if (order.productDetails.length === 0) {
+                productsHTML = `<p>No product details found for this order.</p>`;
+            } else {
+                order.productDetails.forEach(p => {
+                    productsHTML += `
+                <li class="list-group-item">
+                    <strong>Product ID:</strong> ${p.productId}<br>
+                    <strong>Quantity:</strong> ${p.quantity}<br>
+                    <strong>Price:</strong> ${p.price} AZN
+                </li>
+            `;
+                });
+            }
+
+            document.getElementById("orderContainer").innerHTML = `
+        <div class="card p-4 shadow-sm">
+            <h2>Order #${order.id}</h2>
+
+            <p><strong>Total Price:</strong> ${order.totalPrice} AZN</p>
+
+            <p><strong>Customer:</strong> ${order.firstName} ${order.lastName}</p>
+
+            <p><strong>Address:</strong>
+                ${order.address}, ${order.city}, ZIP: ${order.zip}
+            </p>
+
+            <p><strong>Phone:</strong> ${order.phone}</p>
+
+            <h4 class="mt-4">Products</h4>
+
+            <ul class="list-group mt-2">
+                ${productsHTML}
+            </ul>
+        </div>
+    `;
+        }
+
+        loadOrder();
+    </script>
+
+</body>
+
+</html>

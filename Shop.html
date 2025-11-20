@@ -218,23 +218,31 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       cursor: pointer;
-      transition: opacity 0.3s;
+      transition: all 0.3s;
+      padding: 5px;
+      border-radius: 4px;
     }
 
     .rate-option:hover {
-      opacity: 0.7;
+      background-color: #fff3e0;
     }
 
     .rate-option.active {
+      background-color: #ffe0e0;
       font-weight: 500;
+    }
+
+    .rate-option.active .stars {
       color: #e53935;
+      font-size: 18px;
     }
 
     .stars {
       color: #ffc107;
       font-size: 16px;
+      transition: all 0.3s;
     }
 
     .products-grid {
@@ -257,10 +265,6 @@
     .product-card:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transform: translateY(-5px);
-    }
-
-    .product-card.hidden {
-      display: none;
     }
 
     .product-card img {
@@ -296,16 +300,6 @@
 
     .rating-stars {
       color: #ffc107;
-      cursor: pointer;
-    }
-
-    .rating-stars span {
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .rating-stars span:hover {
-      color: #ff9800;
     }
 
     .rating-count {
@@ -326,66 +320,6 @@
 
     .add-to-cart-btn:hover {
       background-color: #555;
-    }
-
-    .rating-modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .rating-modal-content {
-      background-color: white;
-      margin: 15% auto;
-      padding: 30px;
-      border-radius: 8px;
-      width: 400px;
-      text-align: center;
-    }
-
-    .rating-modal-stars {
-      font-size: 40px;
-      margin: 20px 0;
-      cursor: pointer;
-    }
-
-    .rating-modal-stars span {
-      color: #ddd;
-      transition: color 0.2s;
-    }
-
-    .rating-modal-stars span.active,
-    .rating-modal-stars span:hover {
-      color: #ffc107;
-    }
-
-    .rating-modal-btns {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .rating-modal-btns button {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 500;
-    }
-
-    .rating-cancel-btn {
-      background: #ccc;
-    }
-
-    .rating-submit-btn {
-      background: #e53935;
-      color: white;
     }
 
       footer {
@@ -482,6 +416,14 @@
       }
 
       @media (max-width: 900px) {
+        .story-section {
+          grid-template-columns: 1fr;
+        }
+
+        .team-section {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
         .footer-content {
           grid-template-columns: repeat(2, 1fr);
           gap: 30px;
@@ -489,6 +431,22 @@
       }
 
       @media (max-width: 600px) {
+        header {
+          padding: 15px 20px;
+          flex-wrap: wrap;
+        }
+
+        nav {
+          order: 3;
+          width: 100%;
+          margin-top: 15px;
+          justify-content: center;
+        }
+
+        .team-section {
+          grid-template-columns: 1fr;
+        }
+
         .footer-content {
           grid-template-columns: 1fr;
           text-align: center;
@@ -546,7 +504,6 @@
         <option value="price-low">Price: Low to High</option>
         <option value="price-high">Price: High to Low</option>
         <option value="rating-high">Rating: High to Low</option>
-        <option value="newest">Newest</option>
       </select>
     </div>
 
@@ -555,12 +512,8 @@
         <aside class="sidebar">
           <div class="category-section">
             <h3>Category</h3>
-            <ul class="category-list">
-              <li data-category="all" class="active">All</li>
-              <li data-category="1">Clothing</li>
-              <li data-category="2">Footwear</li>
-              <li data-category="3">Accessories</li>
-              <li data-category="4">Tablets</li>
+            <ul class="category-list" id="categoryList">
+
             </ul>
           </div>
 
@@ -589,424 +542,260 @@
     </div>
   </div>
 
-  <!-- Rating Modal -->
-  <div id="ratingModal" class="rating-modal">
-    <div class="rating-modal-content">
-      <h2>Rate this product</h2>
-      <p id="ratingProductName"></p>
-      <div class="rating-modal-stars" id="modalStars">
-        <span data-rating="1">★</span>
-        <span data-rating="2">★</span>
-        <span data-rating="3">★</span>
-        <span data-rating="4">★</span>
-        <span data-rating="5">★</span>
-      </div>
-      <div class="rating-modal-btns">
-        <button class="rating-cancel-btn" onclick="closeRatingModal()">
-          Cancel
-        </button>
-        <button class="rating-submit-btn" onclick="submitRating()">
-          Submit
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <div class="footer-content">
-      <div class="footer-column footer-subscribe">
-        <h3>Exclusive</h3>
-        <p>Subscribe</p>
-        <p>Get 10% off your first order</p>
-        <div class="email-input-wrapper">
-          <input type="email" placeholder="Enter your email" />
-          <button class="subscribe-btn">→</button>
-        </div>
-      </div>
-
-      <div class="footer-column">
-        <h3>Support</h3>
-        <p>111 Bijoy sarani, Dhaka,<br />DH 1515, Bangladesh.</p>
-        <p>exclusive@gmail.com</p>
-        <p>+88015-88888-9999</p>
-      </div>
-
-      <div class="footer-column">
-        <h3>Account</h3>
-        <a href="#">My Account</a>
-        <a href="#">Login / Register</a>
-        <a href="#">Cart</a>
-        <a href="#">Wishlist</a>
-        <a href="#">Shop</a>
-      </div>
-
-      <div class="footer-column">
-        <h3>Quick Link</h3>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms Of Use</a>
-        <a href="#">FAQ</a>
-        <a href="#">Contact</a>
-      </div>
-
-      <div class="footer-column">
-        <h3>Download App</h3>
-        <p style="font-size: 11px; opacity: 0.8">
-          Save $3 with App New User Only
-        </p>
-        <div class="qr-and-apps">
-          <img src="img/qrcode.svg" alt="" class="qr-code" />
-          <div class="app-buttons">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-              alt="Google Play" />
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
-              alt="App Store" />
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column footer-subscribe">
+          <h3>Exclusive</h3>
+          <p>Subscribe</p>
+          <p>Get 10% off your first order</p>
+          <div class="email-input-wrapper">
+            <input type="email" placeholder="Enter your email" />
+            <button class="subscribe-btn">→</button>
           </div>
         </div>
-        <div class="social-icons">
-          <i class="fab fa-facebook-f"></i>
-          <i class="fab fa-twitter"></i>
-          <i class="fab fa-instagram"></i>
-          <i class="fab fa-linkedin-in"></i>
+
+        <div class="footer-column">
+          <h3>Support</h3>
+          <p>111 Bijoy sarani, Dhaka,<br />DH 1515, Bangladesh.</p>
+          <p>exclusive@gmail.com</p>
+          <p>+88015-88888-9999</p>
+        </div>
+
+        <div class="footer-column">
+          <h3>Account</h3>
+          <a href="#">My Account</a>
+          <a href="#">Login / Register</a>
+          <a href="#">Cart</a>
+          <a href="#">Wishlist</a>
+          <a href="#">Shop</a>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Link</h3>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms Of Use</a>
+          <a href="#">FAQ</a>
+          <a href="#">Contact</a>
+        </div>
+
+        <div class="footer-column">
+          <h3>Download App</h3>
+          <p style="font-size: 11px; opacity: 0.8">
+            Save $3 with App New User Only
+          </p>
+          <div class="qr-and-apps">
+            <img src="img/qrcode.svg" alt="QR Code" class="qr-code" />
+            <div class="app-buttons">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Google Play"
+              />
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
+                alt="App Store"
+              />
+            </div>
+          </div>
+          <div class="social-icons">
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-twitter"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-linkedin-in"></i>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="footer-bottom">
-      © Copyright Rimel 2022. All right reserved
-    </div>
-  </footer>
-
+      <div class="footer-bottom">
+        © Copyright Rimel 2022. All right reserved
+      </div>
+    </footer>
   <script src="auth.js"></script>
+
   <script>
+    // Elements - HTML-dəki düzgün class/id-lərlə
+    const categoryList = document.querySelector(".category-list");
+    const searchInput = document.getElementById("productSearch");
+    const sortSelect = document.getElementById("sortDropdown");
+    const productsGrid = document.getElementById("productsGrid");
+    const allProductsBtn = document.getElementById("allProductsBtn");
+    const rateOptions = document.querySelectorAll(".rate-option");
 
-    let allProducts = [];
-    let currentCategory = "all";
-    let currentRating = 0;
-    let selectedProductForRating = null;
-    let currentRatingValue = 0;
-    let categories = [];
+    let products = [];
+    let allCategories = [];
+    let activeCategory = "";
+    let activeRating = "";
+    let activeSearch = "";
+    let activeSort = "";
+    let page = 0;
+    let size = 100;
 
-    function openRatingModal(product) {
-      if (!checkLogin()) return;
-
-      selectedProductForRating = product;
-      currentRatingValue = 0;
-
-      document.getElementById("ratingProductName").textContent = `${product.brand} ${product.model}`;
-      document.getElementById("ratingModal").style.display = "block";
-
-      document.querySelectorAll("#modalStars span").forEach((star) => {
-        star.classList.remove("active");
-      });
-    }
-
-    function closeRatingModal() {
-      document.getElementById("ratingModal").style.display = "none";
-      selectedProductForRating = null;
-      currentRatingValue = 0;
-    }
-
-    async function submitRating() {
-      if (currentRatingValue === 0) {
-        alert("Please select a rating!");
-        return;
-      }
-
-      if (!selectedProductForRating) return;
-
-      const result = await submitProductRating(
-        selectedProductForRating.id,
-        currentRatingValue
-      );
-
-      if (result.success) {
-        alert(`You rated this product ${currentRatingValue} stars!`);
-        closeRatingModal();
-
-        const ratings = await fetchProductRatings(selectedProductForRating.id);
-
-        const productIndex = allProducts.findIndex(
-          (p) => p.id === selectedProductForRating.id
-        );
-        if (productIndex !== -1) {
-          allProducts[productIndex].averageRating = ratings.averageRating;
-          allProducts[productIndex].totalRatings = ratings.totalRatings;
-          allProducts[productIndex].hasApiRating = true;
-        }
-
-        await loadProducts();
-      } else {
-        alert(result.message || "Failed to submit rating");
-      }
-    }
-
-    document.getElementById("modalStars")?.addEventListener("click", function (e) {
-      if (e.target.tagName === "SPAN") {
-        currentRatingValue = parseInt(e.target.dataset.rating);
-        document.querySelectorAll("#modalStars span").forEach((star, index) => {
-          if (index < currentRatingValue) {
-            star.classList.add("active");
-          } else {
-            star.classList.remove("active");
-          }
-        });
-      }
-    });
-
+    // ⭐ CATEGORY LOAD
     async function loadCategories() {
-      categories = [
-        { id: 1, name: "Clothing" },
-        { id: 2, name: "Footwear" },
-        { id: 3, name: "Accessories" },
-        { id: 4, name: "Tablets" }
-      ];
+      try {
+        const res = await fetch("http://195.26.245.5:9505/api/categories");
+        const data = await res.json();
+        allCategories = data;
 
-      const categoryList = document.querySelector(".category-list");
-      if (categoryList) {
-        categoryList.innerHTML = '<li data-category="all" class="active">All</li>';
-
-        categories.forEach((cat) => {
+        categoryList.innerHTML = "";
+        data.forEach(cat => {
           const li = document.createElement("li");
-          li.dataset.category = cat.id;
           li.textContent = cat.name;
-          li.addEventListener("click", function () {
-            filterCategory(cat.id);
+          li.dataset.categoryId = cat.id;
+          li.addEventListener("click", () => {
+            document.querySelectorAll(".category-list li").forEach(item => item.classList.remove("active"));
+            li.classList.add("active");
+            activeCategory = cat.id;
+            fetchProductsFromAPI();
           });
           categoryList.appendChild(li);
         });
+
+      } catch (err) {
+        console.error("Category API failed:", err);
       }
     }
 
-    async function loadProducts() {
+    // ⭐ RATING FILTER
+    rateOptions.forEach(option => {
+      option.addEventListener("click", () => {
+        // Əgər eyni rating-ə kliklənirsə, filtri sıfırla
+        if (option.classList.contains("active")) {
+          option.classList.remove("active");
+          activeRating = "";
+        } else {
+          document.querySelectorAll(".rate-option").forEach(o => o.classList.remove("active"));
+          option.classList.add("active");
+          activeRating = option.dataset.rating;
+        }
+        fetchProductsFromAPI();
+      });
+    });
+
+    // ⭐ ALL PRODUCTS BUTTON
+    allProductsBtn.addEventListener("click", () => {
+      activeCategory = "";
+      activeRating = "";
+      activeSearch = "";
+      searchInput.value = "";
+      document.querySelectorAll(".category-list li").forEach(item => item.classList.remove("active"));
+      document.querySelectorAll(".rate-option").forEach(o => o.classList.remove("active"));
+      fetchProductsFromAPI();
+    });
+
+    // ⭐ FILTER API FUNCTION
+    async function fetchProductsFromAPI() {
+      const tokenData = localStorage.getItem("token");
+      const token = tokenData?.includes("{") ? JSON.parse(tokenData).token : tokenData;
+
+      let url = "http://195.26.245.5:9505/api/products/filter?"
+        + `page=${page}&size=${size}`
+        + (activeCategory ? `&categoryId=${activeCategory}` : "")
+        + (activeRating ? `&rating=${activeRating}` : "")
+        + (activeSearch ? `&search=${activeSearch}` : "")
+        + (activeSort ? `&sortBy=${activeSort}` : "");
+
       try {
-        const products = await fetchProducts();
+        const res = await fetch(url, {
+          headers: token ? { "Authorization": `Bearer ${token}` } : {}
+        });
 
-        const productsWithRatings = await Promise.all(
-          products.map(async (product) => {
-            const ratings = await fetchProductRatings(product.id);
-            const apiRating = ratings.averageRating || 0;
-            const apiTotalRatings = ratings.totalRatings || 0;
+        if (!res.ok) throw new Error("API returned " + res.status);
 
-            return {
-              ...product,
-              averageRating: apiRating,
-              totalRatings: apiTotalRatings,
-              hasApiRating: apiRating > 0
-            };
-          })
-        );
+        const data = await res.json();
+        products = data.content || [];
 
-        allProducts = productsWithRatings;
-        displayProducts(allProducts);
-      } catch (error) {
-        console.error("Products could not be loaded:", error);
-        allProducts = [];
-        displayProducts(allProducts);
+        localStorage.setItem("allProducts", JSON.stringify(products));
+        renderProducts();
+
+      } catch (err) {
+        console.warn("API error → fallback aktivdir.", err);
+        products = fallbackProducts;
+        renderProducts();
       }
     }
 
-    function displayProducts(products) {
-      const grid = document.getElementById("productsGrid");
-      grid.innerHTML = "";
+    // ⭐ PRODUCT CARD RENDER
+    function renderProducts() {
+      productsGrid.innerHTML = "";
 
-      if (products.length === 0) {
-        grid.innerHTML =
-          '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No products found.</p>';
+      if (!products.length) {
+        productsGrid.innerHTML = `<p style="color: #e53935; text-align: center; width: 100%;">No products found.</p>`;
         return;
       }
 
-      products.forEach((product) => {
+      products.forEach(p => {
+        const stars = "★".repeat(Math.round(p.averageRating || 0))
+          + "☆".repeat(5 - Math.round(p.averageRating || 0));
+
         const card = document.createElement("div");
-        card.classList.add("product-card");
-
-        let categoryName = "other";
-        if (product.categoryId) {
-          const category = categories.find((c) => c.id === product.categoryId);
-          categoryName = category ? category.id : product.categoryId;
-        }
-
-        const rating = product.averageRating || 0;
-        const roundedRating = Math.round(rating);
-        const ratingCount = product.totalRatings || 0;
-        const hasApiRating = product.hasApiRating || false;
-
-        card.dataset.category = categoryName;
-        card.dataset.rating = roundedRating;
-        card.dataset.price = product.price || 0;
-        card.dataset.id = product.id;
-
-        const fullStars = roundedRating;
-        const emptyStars = 5 - fullStars;
-        const stars = "★".repeat(fullStars) + "☆".repeat(emptyStars);
-
-        const canRate = !hasApiRating;
-        const ratingClickHandler = canRate
-          ? `onclick="event.stopPropagation(); openRatingModal(JSON.parse(this.dataset.product))"`
-          : '';
-        const ratingCursor = canRate ? 'cursor: pointer;' : 'cursor: default;';
-
-        const productJson = JSON.stringify(product).replace(/"/g, "&quot;");
-
+        card.className = "product-card";
         card.innerHTML = `
-      <img src="${product.imageUrl || "https://via.placeholder.com/250"}" 
-           alt="${product.brand} ${product.model}"
-           onerror="this.src='https://via.placeholder.com/250/f5f5f5/666?text=No+Image'">
-      <div class="product-name">${product.brand} ${product.model}</div>
-      <div class="product-price">$${parseFloat(product.price).toFixed(2)}</div>
-      <div class="product-rating">
-        <span class="rating-stars" ${ratingClickHandler} data-product='${productJson}' style="${ratingCursor}">${stars}</span>
-        <span class="rating-count">(${ratingCount})</span>
-      </div>
-      <button class="add-to-cart-btn">Add to cart</button>
-    `;
-
-        const cartBtn = card.querySelector(".add-to-cart-btn");
-        cartBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          addToCartUI(
-            product.id,
-            `${product.brand} ${product.model}`,
-            product.price,
-            product.imageUrl
-          );
+          <img src="${p.imageUrl}" alt="${p.brand}">
+          <div class="product-name">${p.brand} ${p.model || ""}</div>
+          <div class="product-price">${p.price.toFixed(2)} AZN</div>
+          <div class="product-rating">
+            <span class="rating-stars">${stars}</span>
+            <span class="rating-count">(${p.averageRating || 0})</span>
+          </div>
+          <button class="add-to-cart-btn" onclick="addToCart(${p.id})">Add to Cart</button>
+        `;
+        
+        card.addEventListener("click", (e) => {
+          if (!e.target.classList.contains("add-to-cart-btn")) {
+            viewDetails(p.id);
+          }
         });
 
-        card.addEventListener("click", () => {
-          window.location.href = `ProductPage.html?id=${card.dataset.id}`;
-        });
-
-        grid.appendChild(card);
-      });
-
-      applyFilters();
-    }
-
-    function filterCategory(category) {
-      currentCategory = category;
-      applyFilters();
-
-      document.querySelectorAll(".category-list li").forEach((li) => {
-        li.classList.remove("active");
-        if (li.dataset.category == category) {
-          li.classList.add("active");
-        }
+        productsGrid.appendChild(card);
       });
     }
 
-    function filterRating(rating) {
-      currentRating = rating;
-      applyFilters();
-
-      document.querySelectorAll(".rate-option").forEach((opt) => {
-        opt.classList.remove("active");
-        if (parseInt(opt.dataset.rating) === rating) {
-          opt.classList.add("active");
-        }
-      });
+    // ⭐ VIEW DETAILS
+    function viewDetails(id) {
+      window.location.href = `ProductPage.html?id=${id}`;
     }
 
-    function applyFilters() {
-      const searchTerm = document.getElementById("productSearch")?.value.toLowerCase() || "";
-      const cards = document.querySelectorAll(".product-card");
+    // ⭐ ADD TO CART
+    function addToCart(id) {
+      event.stopPropagation();
+      const product = products.find(p => p.id === id);
+      if (!product) return alert("Product not found!");
 
-      cards.forEach((card) => {
-        const cardCategory = card.dataset.category;
-        const cardRating = parseInt(card.dataset.rating);
-        const productName = card.querySelector(".product-name").textContent.toLowerCase();
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const exists = cart.find(item => item.id === id);
 
-        let showCard = true;
+      if (exists) exists.quantity += 1;
+      else cart.push({ ...product, quantity: 1 });
 
-        if (currentCategory !== "all" && cardCategory != currentCategory) {
-          showCard = false;
-        }
-
-        if (currentRating > 0 && cardRating < currentRating) {
-          showCard = false;
-        }
-
-        if (searchTerm && !productName.includes(searchTerm)) {
-          showCard = false;
-        }
-
-        card.classList.toggle("hidden", !showCard);
-      });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(product.brand + " added to cart!");
     }
 
-    function showAllProducts() {
-      currentCategory = "all";
-      currentRating = 0;
-
-      document.getElementById("productSearch").value = "";
-      document.getElementById("sortDropdown").value = "";
-
-      document.querySelectorAll(".product-card").forEach((card) => {
-        card.classList.remove("hidden");
-      });
-
-      document.querySelectorAll(".category-list li").forEach((li) => {
-        li.classList.remove("active");
-      });
-      document.querySelector(".category-list li[data-category='all']")?.classList.add("active");
-
-      document.querySelectorAll(".rate-option").forEach((opt) => {
-        opt.classList.remove("active");
-      });
-
-      displayProducts(allProducts);
-    }
-
-    function sortProducts() {
-      const grid = document.getElementById("productsGrid");
-      const cards = Array.from(document.querySelectorAll(".product-card"));
-      const sortValue = document.getElementById("sortDropdown").value;
-
-      if (sortValue === "price-low") {
-        cards.sort((a, b) => parseFloat(a.dataset.price) - parseFloat(b.dataset.price));
-      } else if (sortValue === "price-high") {
-        cards.sort((a, b) => parseFloat(b.dataset.price) - parseFloat(a.dataset.price));
-      } else if (sortValue === "rating-high") {
-        cards.sort((a, b) => parseInt(b.dataset.rating) - parseInt(a.dataset.rating));
-      } else if (sortValue === "newest") {
-        cards.sort((a, b) => parseInt(b.dataset.id) - parseInt(a.dataset.id));
-      }
-
-      cards.forEach((card) => grid.appendChild(card));
-    }
-
-    window.onclick = function (event) {
-      const modal = document.getElementById("ratingModal");
-      if (event.target === modal) {
-        closeRatingModal();
-      }
-    };
-
-    document.addEventListener("DOMContentLoaded", async function () {
-      await loadCategories();
-      await loadProducts();
-
-      const searchInput = document.getElementById("productSearch");
-      if (searchInput) {
-        searchInput.addEventListener("input", applyFilters);
-      }
-
-      document.querySelectorAll(".rate-option").forEach((opt) => {
-        opt.addEventListener("click", function () {
-          const rating = parseInt(this.dataset.rating);
-          filterRating(rating);
-        });
-      });
-
-      const sortDropdown = document.getElementById("sortDropdown");
-      if (sortDropdown) {
-        sortDropdown.addEventListener("change", sortProducts);
-      }
-
-      const allProductsBtn = document.getElementById("allProductsBtn");
-      if (allProductsBtn) {
-        allProductsBtn.addEventListener("click", showAllProducts);
-      }
+    // ⭐ SEARCH
+    searchInput.addEventListener("input", e => {
+      activeSearch = e.target.value.trim().toLowerCase();
+      fetchProductsFromAPI();
     });
+
+    // ⭐ SORT
+    sortSelect.addEventListener("change", e => {
+      const value = e.target.value;
+      
+      if (value === "price-low") {
+        products.sort((a, b) => a.price - b.price);
+      } else if (value === "price-high") {
+        products.sort((a, b) => b.price - a.price);
+      } else if (value === "rating-high") {
+        products.sort((a, b) => b.averageRating - a.averageRating);
+      }
+      
+      renderProducts();
+    });
+
+    // ⭐ INIT
+    loadCategories().then(fetchProductsFromAPI);
   </script>
+
 </body>
 
 </html>
